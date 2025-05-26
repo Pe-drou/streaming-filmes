@@ -19,14 +19,14 @@ class Locadora {
 
             foreach ($dados as $dado){
 
-                if ($dado['tipo']=== 'Filme'){
-                    $item = new Filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                if ($dado['tipo'] === 'Filme'){
+                    $item = new filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Serie'){
-                    $item = new Serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Novela') {
-                    $item = new Novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else {
-                    $item = new Desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } 
                 $item->setDisponivel($dado['disponivel']);
 
@@ -41,10 +41,10 @@ class Locadora {
 
     foreach ($this->itens as $item) {
         $dados[] = [
-            'tipo' => ($item instanceof Filme) ? 'Filme' :
-                     (($item instanceof Serie) ? 'Serie' :
-                     (($item instanceof Novela) ? 'Novela' :
-                     (($item instanceof Desenho) ? 'Desenho' : 'desconhecido'))),
+            'tipo' => ($item instanceof filme) ? 'filme' :
+                     (($item instanceof serie) ? 'serie' :
+                     (($item instanceof novela) ? 'novela' :
+                     (($item instanceof desenho) ? 'desenho' : 'desconhecido'))),
             'titulo' => $item->getTitulo(),
             'sinopse' => $item->getSinopse(),
             'genero' => $item->getGenero(),

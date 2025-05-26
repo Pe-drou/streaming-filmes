@@ -53,18 +53,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $genero = $_POST['genero'];
         $tipo = $_POST['tipo'];
 
-        if($tipo == 'filme'){
-            new filme($titulo, $sinopse, $genero);
-        } elseif($tipo == 'serie'){
-            new serie($titulo, $sinopse, $genero);
-        } elseif($tipo == 'desenho'){
-            new desenho($titulo, $sinopse, $genero);
-        } elseif($tipo == 'novela'){
-            new novela($titulo, $sinopse, $genero);
-        } else {
-            $mensagem = "Tipo de item inválido.";
-            goto renderizar;
-        }
+        $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) :
+        (($tipo == 'serie') ? new serie($titulo, $sinopse, $genero) :
+        (($tipo == 'novela') ? new novela($titulo, $sinopse, $genero) :
+        (($tipo == 'desenho') ? new desenho($titulo, $sinopse, $genero) : null)));
         // $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) : new serie($titulo, $sinopse, $genero) ;
         // $item = ($tipo == 'Desenho') ? new Desenho($titulo, $sinopse, $genero) : new Novela($titulo, $sinopse, $genero) ;
 

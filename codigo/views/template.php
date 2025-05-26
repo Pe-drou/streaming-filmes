@@ -641,12 +641,13 @@ $usuario = Auth::getUsuario();
                   </select>
                 </div>
                 <!-- Imagem -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="imagem" class="form-label">Adicionar Imagem</label>
                   <input type="file" name="imagem" id="imagem" class="form-control common-input" required>
-                </div>
-                <button class="btn common-btn w-100 mt-2" type="submit">Adicionar</button>
+                </div> -->
+                <button class="btn common-btn w-100 mt-2" type="" name="adicionar">Adicionar</button>
               </form>
+              <?php if($_POST['adicionar']){echo "<p>item adicionado com sucess0</p>";}?>
             </div>
           </div>
         <?php endif; ?>
