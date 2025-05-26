@@ -274,8 +274,7 @@ $usuario = Auth::getUsuario();
             <li class="nav-item">
                 <a class="nav-link" href="#ALUGUE">Assinatura</a>
             </li>
-            <?php endif; ?>
-            <?php if (Auth::isAdmin()): ?>
+            <?php elseif (Auth::isAdmin()): ?>
             <li class="nav-item">
                 <a class="nav-link" href="#ALUGUE">Adicionar</a>
             </li>
@@ -286,9 +285,11 @@ $usuario = Auth::getUsuario();
                 <div class="d-flex justify-content-center justify-content-lg-end">
                     <div class="dropdown d-flex justify-content-left">
                         <button class="btn common-btn dropdown-toggle w-100 text-center text-lg-end px-3 "type="button"id="adminDropdown"data-bs-toggle="dropdown"aria-expanded="false">
-                            <?php if (Auth::isUser()): ?><i class="bi bi-person-circle"></i> <?php endif; ?>
-                        <?php if (Auth::isAdmin()): ?>
-                        <i class="bi bi-stars"></i> <?php endif; ?> <?= htmlspecialchars($usuario['username'])?>
+                            <?php if (Auth::isUser()): ?>
+                                <i class="bi bi-person-circle"></i>
+                            <?php elseif (Auth::isAdmin()): ?>
+                                <i class="bi bi-stars"></i>
+                            <?php endif; htmlspecialchars($usuario['username']);?>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end w-100 text-center text-lg-end" aria-labelledby="adminDropdown" style="min-width: unset;">
                         <li>
@@ -663,7 +664,7 @@ $usuario = Auth::getUsuario();
         <?php endif; ?>
 
           <!-- Formulário Calcular Preço -->
-          <div class="colcol-<?= Auth::isAdmin() ? 'md-6':'12' ?> col-lg-5 d-flex justify-content-center">
+          <div class="col-<?= Auth::isAdmin() ? 'md-6':'12' ?> col-lg-5 d-flex justify-content-center">
             <div class="p-3 common-container bg-dark text-white w-100" style="max-width: 400px;">
               <h4 class="text-center">Calcular Preço</h4>
               <form method="post" class="needs-validation mt-3" novalidate>

@@ -11,8 +11,8 @@ session_start();
 // Importar as classes Locadora e Auth
 use Services\{Locadora, Auth};
 
-// Importar as classes Carro e moto
-use Models\{serie, filme};
+// Importar as classes de modelos
+use Models\{serie, filme, desenho, novela};
 
 // Verificar se o usuário está logado
 if(!Auth::verificarLogin()){
@@ -53,7 +53,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $genero = $_POST['genero'];
         $tipo = $_POST['tipo'];
 
-        $item = ($tipo == 'Filme') ? new Filme($titulo, $sinopse, $genero) : new Serie($titulo, $sinopse, $genero) ;
+        if($tipo == 'filme'){
+            new filme($titulo, $sinopse, $genero);
+        } elseif($tipo == 'serie'){
+            new serie($titulo, $sinopse, $genero);
+        } elseif($tipo == 'desenho'){
+            new desenho($titulo, $sinopse, $genero);
+        } elseif($tipo == 'novela'){
+            new novela($titulo, $sinopse, $genero);
+        } else {
+            $mensagem = "Tipo de item inválido.";
+            goto renderizar;
+        }
+        // $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) : new serie($titulo, $sinopse, $genero) ;
         // $item = ($tipo == 'Desenho') ? new Desenho($titulo, $sinopse, $genero) : new Novela($titulo, $sinopse, $genero) ;
 
         $locadora->adicionarItem($item);
@@ -81,5 +93,4 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 
 renderizar:
-// require_once __DIR__ . '/../views/home.php';
 require_once __DIR__ . '/../views/template.php';

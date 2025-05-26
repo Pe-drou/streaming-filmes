@@ -6,11 +6,13 @@
  abstract class Item {
     protected string $titulo;
     protected string $genero;
+    protected string $sinopse;
     protected bool $disponivel;
 
-    public function __construct (string $titulo, string $genero){
+    public function __construct (string $titulo, string $sinopse, string $genero) {
         $this -> titulo = $titulo;
         $this -> genero = $genero;
+        $this -> sinopse = $sinopse;
         $this -> disponivel = true;
     }
 
@@ -25,6 +27,9 @@
     }
     public function getGenero(): string{
         return $this->genero;
+    }
+    public function getSinopse(): string{
+        return $this->sinopse;
     }
     public function setDisponivel(bool $disponivel):void{
         $this->disponivel = $disponivel;

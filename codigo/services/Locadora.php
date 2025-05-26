@@ -20,13 +20,13 @@ class Locadora {
             foreach ($dados as $dado){
 
                 if ($dado['tipo']=== 'Filme'){
-                    $item = new Filme($dado['titulo'], $dado['tipo']);
+                    $item = new Filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Serie'){
-                    $item = new Serie($dado['titulo'], $dado['tipo']);
+                    $item = new Serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Novela') {
-                    $item = new Novela($dado['titulo'], $dado['tipo']);
+                    $item = new Novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else {
-                    $item = new Desenho($dado['titulo'], $dado['tipo']);
+                    $item = new Desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } 
                 $item->setDisponivel($dado['disponivel']);
 
@@ -46,6 +46,7 @@ class Locadora {
                      (($item instanceof Novela) ? 'Novela' :
                      (($item instanceof Desenho) ? 'Desenho' : 'desconhecido'))),
             'titulo' => $item->getTitulo(),
+            'sinopse' => $item->getSinopse(),
             'genero' => $item->getGenero(),
             'disponivel' => $item->isDisponivel()
         ];
@@ -139,8 +140,8 @@ class Locadora {
     public function calcularPrevisaoAluguel(string $tipo, int $dias): float {
 
        if($tipo ==='Filme'){
-            return (new Filme('','')) ->calcularAluguel($dias);
+            return (new Filme('','','')) ->calcularAluguel($dias);
        }
-       return (new Serie('','')) ->calcularAluguel($dias);
+       return (new Serie('','','')) ->calcularAluguel($dias);
     }
 }
