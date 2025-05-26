@@ -1,0 +1,32 @@
+[
+    {
+        "titulo": "Ainda Estou Aqui",
+        "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "genero": "Drama",
+        "tipo": "Filme",
+        "disponivel": false
+    },
+
+     {
+        "titulo": "Peaky Blinders",
+        "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "genero": "Ação",
+        "tipo": "Série",
+        "disponivel": true
+    },
+
+    {
+        "titulo": "Avenida Brasil",
+        "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "genero": "Drama",
+        "tipo": "Novela",
+        "disponivel": false
+    },
+    {
+        "titulo": "Ben 10",
+        "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "genero": "Infantil",
+        "tipo": "Desenho",
+        "disponivel": true
+    }
+]
