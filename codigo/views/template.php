@@ -618,7 +618,7 @@ $usuario = Auth::getUsuario();
                 <div class="mb-3">
                   <label class="form-label">Gênero</label>
                   <select name="genero" class="form-select common-input text-black" required>
-                    <option value="" hidden selected>Selecione</option> <option value="Acao" class="text-black">Ação</option>
+                    <option value="" hidden selected aria-invalid="true">Selecione</option> <option value="Acao" class="text-black">Ação</option>
                     <option value="Romance" class="text-black">Romance</option> <option value="Comedia" class="text-black">Comédia</option>
                     <option value="Terror" class="text-black">Terror</option> <option value="Drama" class="text-black">Drama</option>
                     <option value="Ficcao" class="text-black">Ficção Científica</option> <option value="Animado" class="text-black">Animação</option>
@@ -629,7 +629,7 @@ $usuario = Auth::getUsuario();
                 <div class="mb-3">
                   <label class="form-label">Tipo</label>
                   <select name="tipo" class="form-select common-input text-black" required>
-                    <option value="" hidden selected>Selecione</option><option value="filme" class="text-black">Filme</option>
+                    <option value="" hidden selected aria-invalid="true">Selecione</option><option value="filme" class="text-black">Filme</option>
                     <option value="serie" class="text-black">Série</option><option value="novela" class="text-black">Novela</option>
                     <option value="desenho" class="text-black">Desenho</option>
                   </select>
@@ -665,21 +665,21 @@ $usuario = Auth::getUsuario();
               <form method="post" class="needs-validation mt-3" novalidate>
                 <!-- Tipo -->
                 <div class="mb-3">
-                  <label for="tipoPreco" class="form-label">Tipo</label>
-                  <select name="tipo" id="tipoPreco" class="form-select common-input text-black" required>
-                    <option value="" selected disabled>Selecione</option>
-                    <option value="filme" class="text-black">Filme</option>
-                    <option value="serie" class="text-black">Série</option>
-                    <option value="novela" class="text-black">Novela</option>
-                    <option value="documentario" class="text-black">Documentário</option>
+                  <label class="form-label">Tipo</label>
+                  <select name="tipoCalculo" class="form-select common-input text-black" required>
+                    <option value="" selected hidden>Selecione</option>
+                    <option value="Filme" class="text-black">Filme</option>
+                    <option value="Serie" class="text-black">Série</option>
+                    <option value="Novela" class="text-black">Novela</option>
+                    <option value="Documentario" class="text-black">Documentário</option>
                   </select>
                 </div>
                 <!-- Dias -->
                 <div class="mb-3">
-                  <label for="dias" class="form-label">Tempo em dias</label>
-                  <input type="number" name="dias" id="dias" class="form-control common-input text-black " min="1" required>
+                  <label class="form-label">Tempo em dias</label>
+                  <input type="number" name="diasCalculo" class="form-control common-input text-black " min="1" required>
                 </div>
-                <button class="btn common-btn w-100 mt-2" type="submit">Calcular</button>
+                <button class="btn common-btn w-100 mt-2" type="submit" name="calcular">Calcular</button>
               </form>
             </div>
           </div>

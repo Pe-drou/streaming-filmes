@@ -139,9 +139,14 @@ class Locadora {
     // Calcular previsão do valor
     public function calcularPrevisaoAluguel(string $tipo, int $dias): float {
 
-       if($tipo ==='Filme'){
+        if($tipo ==='Filme'){
             return (new Filme('','','')) ->calcularAluguel($dias);
-       }
-       return (new Serie('','','')) ->calcularAluguel($dias);
+        } elseif($tipo === 'Desenho'){
+            return (new Desenho('','','')) ->calcularAluguel($dias);
+        } elseif($tipo === 'Novela'){
+            return (new Novela('','','')) ->calcularAluguel($dias);
+        } else {
+        return (new Serie('','','')) ->calcularAluguel($dias);
+        }
     }
 }

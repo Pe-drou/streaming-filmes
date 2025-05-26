@@ -35,7 +35,7 @@ $mensagem = '';
 $usuario = Auth::getUsuario();
 
 // Verificar os dados do formulário via POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Verificar se requer permissão de administrador
     if (isset($_POST['adicionar']) || isset($_POST['deletar']) || isset($_POST['alugar']) || isset($_POST['devolver'])) {
@@ -51,7 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $genero = $_POST['genero'];
         $tipo = $_POST['tipo'];
 
-        $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) : new serie($titulo, $sinopse, $genero);
+        $item = ($tipo == 'Filme') ? new Filme($titulo, $sinopse, $genero)
+            : (($tipo == 'Serie') ? new Serie($titulo, $sinopse, $genero)
+            : (($tipo == 'Desenho') ? new Desenho($titulo, $sinopse, $genero)
+            : new Novela($titulo, $sinopse, $genero)));
 
         $locadora->adicionarItem($item);
 
@@ -69,9 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensagem = $locadora->deletarItem($_POST['titulo'], $_POST['genero']);
     }
     elseif(isset($_POST['calcular'])){
-        $dias = (int)$_POST['dias_calculo'];
-        $tipo = $_POST['tipo_calculo'];
-        $valor = $locadora->calcularPrevisaoAluguel($dias, $tipo);
+        $dias = (int)$_POST['diasCalculo'];
+        $tipo = $_POST['tipoCalculo'];
+        $valor = $locadora->calcularPrevisaoAluguel($tipo, $dias);
 
         $mensagem = "Previsão de valor para {$dias} dias: R$ " . number_format($valor, 2, ',', '.');
     }    
