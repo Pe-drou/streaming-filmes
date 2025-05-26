@@ -21,9 +21,13 @@ class Locadora {
 
                 if ($dado['tipo']=== 'Filme'){
                     $item = new Filme($dado['titulo'], $dado['tipo']);
-                } else {
+                } else if ($dado['tipo']=== 'Serie'){
                     $item = new Serie($dado['titulo'], $dado['tipo']);
-                }
+                } else if ($dado['tipo']=== 'Novela') {
+                    $item = new Novela($dado['titulo'], $dado['tipo']);
+                } else {
+                    $item = new Desenho($dado['titulo'], $dado['tipo']);
+                } 
                 $item->setDisponivel($dado['disponivel']);
 
                 $this->itens[] = $item;
@@ -32,17 +36,20 @@ class Locadora {
     }
 
     // Salvar veículos
-    private function salvarItens(): void{
-        $dados = [];
+    private function salvarItens(): void {
+    $dados = [];
 
-        foreach($this->itens as $item){
-            $dados[] = [
-                'tipo' => ($item instanceof Filme) ? 'Filme' :'Serie',
-                'titulo' => $item -> getTitulo(),
-                'genero' => $item -> getGenero(),
-                'disponivel' => $item -> isDisponivel()
-            ];
-        }
+    foreach ($this->itens as $item) {
+        $dados[] = [
+            'tipo' => ($item instanceof Filme) ? 'Filme' :
+                     (($item instanceof Serie) ? 'Serie' :
+                     (($item instanceof Novela) ? 'Novela' :
+                     (($item instanceof Desenho) ? 'Desenho' : 'desconhecido'))),
+            'titulo' => $item->getTitulo(),
+            'genero' => $item->getGenero(),
+            'disponivel' => $item->isDisponivel()
+        ];
+    }
 
         $dir = dirname(ARQUIVO_JSON);
 

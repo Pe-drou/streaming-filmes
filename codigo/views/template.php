@@ -688,8 +688,16 @@ $usuario = Auth::getUsuario();
                 <img src="../" class="card-img-top fmsr-poster" alt="Poster">
                 <div class="card-body text-center">
               <h4 class="card-title"><?= htmlspecialchars($item->getTitulo()) ?></h4>
-              <p><?= htmlspecialchars($item->getGenero()) ?></p>
-              <p><?= $item instanceof \Models\filme ? 'filme' : 'serie' ?></p>
+              
+              <p>
+                    <?= 
+                        $item instanceof \Models\filme ? 'Filme' : (
+                            $item instanceof \Models\serie ? 'Serie' : (
+                                $item instanceof \Models\novela ? 'Novela' : 'Desenho'
+                            )
+                        );
+                    ?>
+                </p>
               <!-- Formulário de ações -->
               <form method="POST" class="btn-group-actions d-flex flex-column gap-2">
                 <!-- Campo oculto para identificar o item -->
