@@ -35,30 +35,23 @@ $mensagem = '';
 $usuario = Auth::getUsuario();
 
 // Verificar os dados do formulário via POST
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verificar se requer permissão de administrador
-    if(isset($_POST['adicionar']) || isset($_POST['deletar']) || isset($_POST['alugar']) ||isset($_POST['devolver'])){
-
-        if(!Auth::isAdmin()){
+    if (isset($_POST['adicionar']) || isset($_POST['deletar']) || isset($_POST['alugar']) || isset($_POST['devolver'])) {
+        if (!Auth::isAdmin()) {
             $mensagem = "Você não tem permissão para realizar essa ação.";
             goto renderizar;
         }
     }
 
-
-    if(isset($_POST['adicionar'])){
+    if (isset($_POST['adicionar'])) {
         $titulo = $_POST['titulo'];
         $sinopse = $_POST['sinopse'];
         $genero = $_POST['genero'];
         $tipo = $_POST['tipo'];
 
-        $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) :
-        (($tipo == 'serie') ? new serie($titulo, $sinopse, $genero) :
-        (($tipo == 'novela') ? new novela($titulo, $sinopse, $genero) :
-        (($tipo == 'desenho') ? new desenho($titulo, $sinopse, $genero) : null)));
-        // $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) : new serie($titulo, $sinopse, $genero) ;
-        // $item = ($tipo == 'Desenho') ? new Desenho($titulo, $sinopse, $genero) : new Novela($titulo, $sinopse, $genero) ;
+        $item = ($tipo == 'filme') ? new filme($titulo, $sinopse, $genero) : new serie($titulo, $sinopse, $genero);
 
         $locadora->adicionarItem($item);
 
@@ -73,7 +66,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $mensagem = $locadora->devolverItem($_POST['titulo']);
     }
     elseif(isset($_POST['deletar'])){
-        $mensagem = $locadora->deletarItem($_POST['titulo'], $_POST['tipo']);
+        $mensagem = $locadora->deletarItem($_POST['titulo'], $_POST['genero']);
     }
     elseif(isset($_POST['calcular'])){
         $dias = (int)$_POST['dias_calculo'];

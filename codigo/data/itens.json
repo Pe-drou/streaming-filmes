@@ -1,32 +1,23 @@
 [
     {
+        "tipo": "desenho",
         "titulo": "Ainda Estou Aqui",
         "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-        "genero": "Drama",
-        "tipo": "Filme",
-        "disponivel": false
-    },
-
-     {
-        "titulo": "Peaky Blinders",
-        "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-        "genero": "Ação",
-        "tipo": "Série",
+        "genero": "desenho",
         "disponivel": true
     },
-
     {
-        "titulo": "Avenida Brasil",
+        "tipo": "desenho",
+        "titulo": "Peaky Blinders",
         "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-        "genero": "Drama",
-        "tipo": "Novela",
-        "disponivel": false
+        "genero": "desenho",
+        "disponivel": true
     },
     {
-        "titulo": "Ben 10",
+        "tipo": "desenho",
+        "titulo": "Avenida Brasil",
         "sinopse": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-        "genero": "Infantil",
-        "tipo": "Desenho",
+        "genero": "desenho",
         "disponivel": true
     }
 ]

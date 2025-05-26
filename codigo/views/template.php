@@ -75,9 +75,9 @@ $usuario = Auth::getUsuario();
             color: #000 !important;
         }
         .common-btn:active{
-            background-color: #ddd !important;
+            background-color: #ccc !important;
             color: #000000 !important;
-            border: 3px solid #ddd !important;
+            border: none !important;
         }
         .common-btn:hover .bi, .common-btn:active .bi{
             color: #000 !important;
@@ -601,42 +601,36 @@ $usuario = Auth::getUsuario();
           <div class="col-md-6 col-lg-5 d-flex justify-content-center">
             <div class="p-3 common-container bg-dark text-white w-100" style="max-width: 400px;">
               <h4 class="text-center">Adicionar ao catálogo</h4>
-              <form method="post" class="needs-validation mt-3" novalidate>
+              <form class="needs-validation" method="POST" novalidate>
                 <!-- Título -->
                 <div class="mb-3">
-                  <label for="filme" class="form-label">Título</label>
-                  <input type="text" name="titulo" id="filme" class="form-control common-input text-black" required>
+                  <label class="form-label">Título</label>
+                  <input type="text" name="titulo" class="form-control common-input text-black" required>
                   <div class="invalid-feedback">Campo obrigatório</div>
                 </div>
                 <!-- Sinopse -->
                 <div class="mb-3">
-                  <label for="sinopse" class="form-label">Sinopse</label>
-                  <textarea class="form-control common-input text-black" name="sinopse" id="sinopse" rows="2" required></textarea>
+                  <label class="form-label">Sinopse</label>
+                  <textarea class="form-control common-input text-black" name="sinopse" rows="2" required></textarea>
                   <div class="invalid-feedback">Campo obrigatório</div>
                 </div>
                 <!-- Gênero -->
                 <div class="mb-3">
-                  <label for="genero" class="form-label">Gênero</label>
-                  <select name="genero" id="genero" class="form-select common-input text-black" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="acao" class="text-black">Ação</option>
-                    <option value="romance" class="text-black">Romance</option>
-                    <option value="comedia" class="text-black">Comédia</option>
-                    <option value="terror" class="text-black">Terror</option>
-                    <option value="drama" class="text-black">Drama</option>
-                    <option value="ficcao" class="text-black">Ficção Científica</option>
-                    <option value="animado" class="text-black">Animação</option>
-                    <option value="infantil" class="text-black">Infantil</option>
+                  <label class="form-label">Gênero</label>
+                  <select name="genero" class="form-select common-input text-black" required>
+                    <option value="" hidden selected>Selecione</option> <option value="Acao" class="text-black">Ação</option>
+                    <option value="Romance" class="text-black">Romance</option> <option value="Comedia" class="text-black">Comédia</option>
+                    <option value="Terror" class="text-black">Terror</option> <option value="Drama" class="text-black">Drama</option>
+                    <option value="Ficcao" class="text-black">Ficção Científica</option> <option value="Animado" class="text-black">Animação</option>
+                    <option value="Infantil" class="text-black">Infantil</option>
                   </select>
                 </div>
                 <!-- Tipo -->
                 <div class="mb-3">
-                  <label for="tipoAdicao" class="form-label">Tipo</label>
-                  <select name="tipo" id="tipoAdicao" class="form-select common-input text-black" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="filme" class="text-black">Filme</option>
-                    <option value="serie" class="text-black">Série</option>
-                    <option value="novela" class="text-black">Novela</option>
+                  <label class="form-label">Tipo</label>
+                  <select name="tipo" class="form-select common-input text-black" required>
+                    <option value="" hidden selected>Selecione</option><option value="filme" class="text-black">Filme</option>
+                    <option value="serie" class="text-black">Série</option><option value="novela" class="text-black">Novela</option>
                     <option value="desenho" class="text-black">Desenho</option>
                   </select>
                 </div>
@@ -645,9 +639,9 @@ $usuario = Auth::getUsuario();
                   <label for="imagem" class="form-label">Adicionar Imagem</label>
                   <input type="file" name="imagem" id="imagem" class="form-control common-input" required>
                 </div> -->
-                <button class="btn common-btn w-100 mt-2" type="" name="adicionar">Adicionar</button>
+                <button type="submit" class="btn common-btn w-100 mt-2" name="adicionar">Adicionar</button>
+                <?php if(isset($_POST['adicionar'])){echo "<p>item adicionado com sucesso</p>";}?>
               </form>
-              <?php if($_POST['adicionar']){echo "<p>item adicionado com sucess0</p>";}?>
             </div>
           </div>
         <?php endif; ?>
@@ -700,14 +694,10 @@ $usuario = Auth::getUsuario();
                 <div class="card-body text-center">
               <h4 class="card-title"><?= htmlspecialchars($item->getTitulo()) ?></h4>
               
-              <p>
-                    <?= 
-                        $item instanceof \Models\filme ? 'Filme' : (
-                            $item instanceof \Models\serie ? 'Serie' : (
-                                $item instanceof \Models\novela ? 'Novela' : 'Desenho'
-                            )
-                        );
-                    ?>
+                <p><?= $item instanceof \Models\filme ? 'Filme' : (
+                $item instanceof \Models\serie ? 'Serie' : (
+                $item instanceof \Models\novela ? 'Novela' : 'Desenho')
+                );?>
                 </p>
               <!-- Formulário de ações -->
               <form method="POST" class="btn-group-actions d-flex flex-column gap-2">

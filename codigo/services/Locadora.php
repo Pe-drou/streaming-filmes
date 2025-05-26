@@ -1,7 +1,7 @@
 <?php
 namespace Services;
 
-use Models\{item, filme, serie, desenho, novela};
+use Models\{Item, Filme, Serie, Desenho, Novela};
 
 // classe para gerenciar a locação
 class Locadora {
@@ -20,16 +20,16 @@ class Locadora {
             foreach ($dados as $dado){
 
                 if ($dado['tipo'] === 'Filme'){
-                    $item = new filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new Filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Serie'){
-                    $item = new serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new Serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else if ($dado['tipo']=== 'Novela') {
-                    $item = new novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new Novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } else {
-                    $item = new desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
+                    $item = new Desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } 
-                $item->setDisponivel($dado['disponivel']);
 
+                $item->setDisponivel($dado['disponivel']);
                 $this->itens[] = $item;
             }
         }
@@ -39,18 +39,18 @@ class Locadora {
     private function salvarItens(): void {
     $dados = [];
 
-    foreach ($this->itens as $item) {
-        $dados[] = [
-            'tipo' => ($item instanceof filme) ? 'filme' :
-                     (($item instanceof serie) ? 'serie' :
-                     (($item instanceof novela) ? 'novela' :
-                     (($item instanceof desenho) ? 'desenho' : 'desconhecido'))),
-            'titulo' => $item->getTitulo(),
-            'sinopse' => $item->getSinopse(),
-            'genero' => $item->getGenero(),
-            'disponivel' => $item->isDisponivel()
-        ];
-    }
+        foreach ($this->itens as $item) {
+            $dados[] = [
+                'tipo' => ($item instanceof Filme) ? 'filme' :
+                         (($item instanceof Serie) ? 'serie' :
+                         (($item instanceof Novela) ? 'novela' :
+                         (($item instanceof Desenho) ? 'desenho' : null))),
+                'titulo' => $item->getTitulo(),
+                'sinopse' => $item->getSinopse(),
+                'genero' => $item->getGenero(),
+                'disponivel' => $item->isDisponivel()
+            ];
+        }
 
         $dir = dirname(ARQUIVO_JSON);
 
@@ -63,7 +63,7 @@ class Locadora {
     }
 
     // Adicionar novo veículo
-    public function adicionarItem(item $item): void{
+    public function adicionarItem(Item $item): void{
         $this->itens[] = $item;
         $this->salvarItens();
     }
@@ -74,7 +74,7 @@ class Locadora {
         foreach ($this->itens as $key => $item){
 
             // verifica se modelo e placa correspondem
-            if($item->getTitulo() === $titulo && $item->getTipo() === $genero){
+            if($item->getTitulo() === $titulo && $item->getGenero() === $genero){
                 // remove o veículo do array
                 unset($this->itens[$key]);
 
@@ -83,7 +83,7 @@ class Locadora {
 
                 // Salvar o novo estado
                 $this->salvarItens();
-                return "Veículo '{$titulo}' removido com sucesso!";
+                return "Item '{$titulo}' removido com sucesso!";
             }
         }
         return "Item não encontrado!";
@@ -113,12 +113,12 @@ class Locadora {
 
     // Devolver veículo
 
-    public function devolverItem(string $titulo) :string{
+    public function devolverItem(string $titulo): string{
 
         // Percorrer a lista
         foreach($this->itens as $item){
 
-            if($item->getItem() === $titulo && !$item->isDisponivel()){
+            if($item->getTitulo() === $titulo && !$item->isDisponivel()){
 
                 // disponibilizar o veículo
                 $mensagem = $item->devolver();
