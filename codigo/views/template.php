@@ -55,9 +55,6 @@ $usuario = Auth::getUsuario();
             background-color: #C60A26 !important;
             border-radius: 5px;
             max-width: 500px;
-            color: #000;
-            display: flex;
-            align-items: center;
         }
         .borderless{
             border: none;
@@ -273,16 +270,25 @@ $usuario = Auth::getUsuario();
             <li class="nav-item">
                 <a class="nav-link" href="#CATALOGO">Catálogo</a>
             </li>
+            <?php if (Auth::isUser()): ?>
+            <li class="nav-item">
+                <a class="nav-link" href="#ALUGUE">Assinatura</a>
+            </li>
+            <?php endif; ?>
+            <?php if (Auth::isAdmin()): ?>
             <li class="nav-item">
                 <a class="nav-link" href="#ALUGUE">Adicionar</a>
             </li>
+            <?php endif; ?>
             
             <!-- Menu -->
             <div class="dropdown nav-item ms-lg-auto w-100 w-lg-auto">
                 <div class="d-flex justify-content-center justify-content-lg-end">
                     <div class="dropdown d-flex justify-content-left">
                         <button class="btn common-btn dropdown-toggle w-100 text-center text-lg-end px-3 "type="button"id="adminDropdown"data-bs-toggle="dropdown"aria-expanded="false">
-                        <i class="bi bi-stars"></i> <?= htmlspecialchars($usuario['username'])?>
+                            <?php if (Auth::isUser()): ?><i class="bi bi-person-circle"></i> <?php endif; ?>
+                        <?php if (Auth::isAdmin()): ?>
+                        <i class="bi bi-stars"></i> <?php endif; ?> <?= htmlspecialchars($usuario['username'])?>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end w-100 text-center text-lg-end" aria-labelledby="adminDropdown" style="min-width: unset;">
                         <li>
@@ -610,7 +616,7 @@ $usuario = Auth::getUsuario();
                 <!-- Gênero -->
                 <div class="mb-3">
                   <label for="genero" class="form-label">Gênero</label>
-                  <select name="genero" id="genero" class="form-select common-input" required>
+                  <select name="genero" id="genero" class="form-select common-input text-black" required>
                     <option value="" disabled selected>Selecione</option>
                     <option value="acao" class="text-black">Ação</option>
                     <option value="romance" class="text-black">Romance</option>
@@ -625,12 +631,12 @@ $usuario = Auth::getUsuario();
                 <!-- Tipo -->
                 <div class="mb-3">
                   <label for="tipoAdicao" class="form-label">Tipo</label>
-                  <select name="tipo" id="tipoAdicao" class="form-select common-input" required>
+                  <select name="tipo" id="tipoAdicao" class="form-select common-input text-black" required>
                     <option value="" disabled selected>Selecione</option>
-                    <option value="filme">Filme</option>
-                    <option value="serie">Série</option>
-                    <option value="novela">Novela</option>
-                    <option value="documentario">Documentário</option>
+                    <option value="filme" class="text-black">Filme</option>
+                    <option value="serie" class="text-black">Série</option>
+                    <option value="novela" class="text-black">Novela</option>
+                    <option value="desenho" class="text-black">Desenho</option>
                   </select>
                 </div>
                 <!-- Imagem -->
@@ -647,12 +653,15 @@ $usuario = Auth::getUsuario();
         <br>
         <br>
         
+        <?php if (Auth::isUser()): ?>
         <!-- Título -->
         <div class="text-center my-4">
             <h2 class="title-font">
                 Previsão
             </h2>
         </div>
+        <?php endif; ?>
+
           <!-- Formulário Calcular Preço -->
           <div class="colcol-<?= Auth::isAdmin() ? 'md-6':'12' ?> col-lg-5 d-flex justify-content-center">
             <div class="p-3 common-container bg-dark text-white w-100" style="max-width: 400px;">
