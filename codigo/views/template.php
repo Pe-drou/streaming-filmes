@@ -601,7 +601,9 @@ $usuario = Auth::getUsuario();
           <div class="col-md-6 col-lg-5 d-flex justify-content-center">
             <div class="p-3 common-container bg-dark text-white w-100" style="max-width: 400px;">
               <h4 class="text-center">Adicionar ao catálogo</h4>
-              <form class="needs-validation" method="POST" novalidate>
+              <form class="needs-validation" method="POST" enctype="multipart/form-data" novalidate></form>
+              <!-- NAO REMOVA ESSE FORM OU O FORMULÁRIO DE ADICIONAR PARA DE FUNCIONAR -->
+              <form method="post" class="needs-validaton" novalidate>
                 <!-- Título -->
                 <div class="mb-3">
                   <label class="form-label">Título</label>
@@ -614,23 +616,25 @@ $usuario = Auth::getUsuario();
                   <textarea class="form-control common-input text-black" name="sinopse" rows="2" required></textarea>
                   <div class="invalid-feedback">Campo obrigatório</div>
                 </div>
-                <!-- Gênero -->
+                <!-- Gênero --> 
                 <div class="mb-3">
                   <label class="form-label">Gênero</label>
                   <select name="genero" class="form-select common-input text-black" required>
-                    <option value="" hidden selected aria-invalid="true">Selecione</option> <option value="Acao" class="text-black">Ação</option>
-                    <option value="Romance" class="text-black">Romance</option> <option value="Comedia" class="text-black">Comédia</option>
-                    <option value="Terror" class="text-black">Terror</option> <option value="Drama" class="text-black">Drama</option>
-                    <option value="Ficcao" class="text-black">Ficção Científica</option> <option value="Animado" class="text-black">Animação</option>
-                    <option value="Infantil" class="text-black">Infantil</option>
+                    <option value="" hidden selected aria-invalid="true">Selecione</option> <option value="acao" class="text-black">Ação</option>
+                    <option value="romance" class="text-black">Romance</option> <option value="comedia" class="text-black">Comédia</option>
+                    <option value="terror" class="text-black">Terror</option> <option value="drama" class="text-black">Drama</option>
+                    <option value="ficcao" class="text-black">Ficção Científica</option> <option value="animado" class="text-black">Animação</option>
+                    <option value="infantil" class="text-black">Infantil</option>
                   </select>
                 </div>
                 <!-- Tipo -->
                 <div class="mb-3">
                   <label class="form-label">Tipo</label>
                   <select name="tipo" class="form-select common-input text-black" required>
-                    <option value="" hidden selected aria-invalid="true">Selecione</option><option value="filme" class="text-black">Filme</option>
-                    <option value="serie" class="text-black">Série</option><option value="novela" class="text-black">Novela</option>
+                    <option value="" hidden selected aria-invalid="true">Selecione</option>
+                    <option value="filme" class="text-black">Filme</option>
+                    <option value="serie" class="text-black">Série</option>
+                    <option value="novela" class="text-black">Novela</option>
                     <option value="desenho" class="text-black">Desenho</option>
                   </select>
                 </div>
@@ -640,7 +644,7 @@ $usuario = Auth::getUsuario();
                   <input type="file" name="imagem" id="imagem" class="form-control common-input" required>
                 </div> -->
                 <button type="submit" class="btn common-btn w-100 mt-2" name="adicionar">Adicionar</button>
-                <?php if(isset($_POST['adicionar'])){echo "<p>item adicionado com sucesso</p>";}?>
+                <?php if(isset($_POST['cadastrar'])){echo "<p>item adicionado com sucesso</p>";}?>
               </form>
             </div>
           </div>
@@ -668,10 +672,10 @@ $usuario = Auth::getUsuario();
                   <label class="form-label">Tipo</label>
                   <select name="tipoCalculo" class="form-select common-input text-black" required>
                     <option value="" selected hidden>Selecione</option>
-                    <option value="Filme" class="text-black">Filme</option>
-                    <option value="Serie" class="text-black">Série</option>
-                    <option value="Novela" class="text-black">Novela</option>
-                    <option value="Documentario" class="text-black">Documentário</option>
+                    <option value="filme" class="text-black">Filme</option>
+                    <option value="serie" class="text-black">Série</option>
+                    <option value="novela" class="text-black">Novela</option>
+                    <option value="desenho" class="text-black">Documentário</option>
                   </select>
                 </div>
                 <!-- Dias -->
@@ -694,9 +698,9 @@ $usuario = Auth::getUsuario();
                 <div class="card-body text-center">
               <h4 class="card-title"><?= htmlspecialchars($item->getTitulo()) ?></h4>
               
-                <p><?= $item instanceof \Models\filme ? 'Filme' : (
-                $item instanceof \Models\serie ? 'Serie' : (
-                $item instanceof \Models\novela ? 'Novela' : 'Desenho')
+                <p><?= $item instanceof \Models\Filme ? 'Filme' : (
+                $item instanceof \Models\Serie ? 'Serie' : (
+                $item instanceof \Models\Novela ? 'Novela' : 'Desenho')
                 );?>
                 </p>
               <!-- Formulário de ações -->

@@ -19,13 +19,13 @@ class Locadora {
 
             foreach ($dados as $dado){
 
-                if ($dado['tipo'] === 'Filme'){
+                if ($dado['tipo'] === 'filme'){
                     $item = new Filme($dado['titulo'], $dado['sinopse'], $dado['tipo']);
-                } else if ($dado['tipo']=== 'Serie'){
+                } else if ($dado['tipo']=== 'serie'){
                     $item = new Serie($dado['titulo'], $dado['sinopse'], $dado['tipo']);
-                } else if ($dado['tipo']=== 'Novela') {
+                } else if ($dado['tipo']=== 'novela') {
                     $item = new Novela($dado['titulo'], $dado['sinopse'], $dado['tipo']);
-                } else {
+                } else if ($dado['tipo']=== 'desenho') {
                     $item = new Desenho($dado['titulo'], $dado['sinopse'], $dado['tipo']);
                 } 
 
@@ -35,7 +35,7 @@ class Locadora {
         }
     }
 
-    // Salvar veículos
+    // Salvar item
     private function salvarItens(): void {
     $dados = [];
 
@@ -62,20 +62,21 @@ class Locadora {
         
     }
 
-    // Adicionar novo veículo
+    // Adicionar novo item
     public function adicionarItem(Item $item): void{
         $this->itens[] = $item;
         $this->salvarItens();
+        $_POST = []; // Limpar os dados do formulário após adicionar
     }
 
-    //Remover veículo
+    //Remover item
     public function deletarItem(string $titulo, string $genero): string{
 
         foreach ($this->itens as $key => $item){
 
-            // verifica se modelo e placa correspondem
+            // verifica se o titulo e tipo correspondem
             if($item->getTitulo() === $titulo && $item->getGenero() === $genero){
-                // remove o veículo do array
+                // remove o item do array
                 unset($this->itens[$key]);
 
                 // reorganizar os indices
@@ -89,10 +90,10 @@ class Locadora {
         return "Item não encontrado!";
     }
 
-    // Alugar veículo por n dias
+    // Alugar item por n dias
     public function alugarItem(string $titulo, int $dias = 1): string{
 
-        // percorre a lista de veículos
+        // percorre a lista de itens
         foreach($this->itens as $item){
 
             if($item->getTitulo() === $titulo && $item->isDisponivel()){
@@ -111,7 +112,7 @@ class Locadora {
         return "Item não disponível";
     }
 
-    // Devolver veículo
+    // Devolver item
 
     public function devolverItem(string $titulo): string{
 
@@ -120,7 +121,7 @@ class Locadora {
 
             if($item->getTitulo() === $titulo && !$item->isDisponivel()){
 
-                // disponibilizar o veículo
+                // disponibilizar o item
                 $mensagem = $item->devolver();
 
                 $this->salvarItens();
@@ -130,7 +131,7 @@ class Locadora {
         return "Item já disponível ou não encontrado.";
     }
 
-    // Retorna a lista de veículos
+    // Retorna a lista de itens
 
     public function listarItens():array{
         return $this->itens;

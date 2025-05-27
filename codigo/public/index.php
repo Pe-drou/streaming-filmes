@@ -12,7 +12,7 @@ session_start();
 use Services\{Locadora, Auth};
 
 // Importar as classes de modelos
-use Models\{serie, filme, desenho, novela};
+use Models\{Serie, Filme, Desenho, Novela};
 
 // Verificar se o usuário está logado
 if(!Auth::verificarLogin()){
@@ -45,16 +45,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (isset($_POST['adicionar'])) {
+    if (isset($_POST['adicionar']) ?? null) {
         $titulo = $_POST['titulo'];
         $sinopse = $_POST['sinopse'];
         $genero = $_POST['genero'];
         $tipo = $_POST['tipo'];
 
-        $item = ($tipo == 'Filme') ? new Filme($titulo, $sinopse, $genero)
-            : (($tipo == 'Serie') ? new Serie($titulo, $sinopse, $genero)
-            : (($tipo == 'Desenho') ? new Desenho($titulo, $sinopse, $genero)
-            : new Novela($titulo, $sinopse, $genero)));
+        if ($tipo == 'serie'){
+            $item = new Serie($titulo, $sinopse, $genero);
+        } elseif($tipo == 'filme'){
+            $item = new Filme($titulo, $sinopse, $genero);
+        } elseif ($tipo == 'desenho'){
+            $item = new Desenho($titulo, $sinopse, $genero);
+        } elseif ($tipo == 'novela'){
+            $item = new Novela($titulo, $sinopse, $genero);
+        } else {
+            $mensagem = "Escolha um tipo válido.";
+            goto renderizar;
+        }
 
         $locadora->adicionarItem($item);
 
@@ -77,7 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $valor = $locadora->calcularPrevisaoAluguel($tipo, $dias);
 
         $mensagem = "Previsão de valor para {$dias} dias: R$ " . number_format($valor, 2, ',', '.');
-    }    
+        $_POST = []; // Limpar os dados do formulário após alugar
+    }
 }
 
 renderizar:
