@@ -713,6 +713,7 @@ $usuario = Auth::getUsuario();
                     <?= $item->isDisponivel() ? 'Disponível' : 'Alugado' ?>
                   </span>
                 </div>
+                <?php if (Auth::isAdmin()): ?>
                 <?php if ($item->isDisponivel()): ?>
                   <!-- Aluguel -->
                   <div class="d-flex gap-2 justify-content-center">
@@ -725,7 +726,6 @@ $usuario = Auth::getUsuario();
                     <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
                   </div>
                 <?php endif; ?>
-                <?php if (Auth::isAdmin()): ?>
                   <!-- Ações Admin -->
                   <div class="d-flex gap-2 justify-content-center mt-2">
                     <button class="btn btn-secondary btn-sm" type="submit" name="editar">Editar</button>
