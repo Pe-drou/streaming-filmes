@@ -253,7 +253,7 @@ $usuario = Auth::getUsuario();
     <title>CineHome</title>
 </head>
 <body>
-    <!-- Barra de navegação -->
+   <!-- Barra de navegação -->
     <nav class="navbar navbar-expand-lg nav-color p-3">
         <div class="container-fluid justify-content-center">
         <a href="home_adm.html" class="navbar-brand nav-logo mx-auto">
@@ -274,7 +274,8 @@ $usuario = Auth::getUsuario();
             <li class="nav-item">
                 <a class="nav-link" href="#ALUGUE">Assinatura</a>
             </li>
-            <?php elseif (Auth::isAdmin()): ?>
+            <?php endif; ?>
+            <?php if (Auth::isAdmin()): ?>
             <li class="nav-item">
                 <a class="nav-link" href="#ALUGUE">Adicionar</a>
             </li>
@@ -285,11 +286,9 @@ $usuario = Auth::getUsuario();
                 <div class="d-flex justify-content-center justify-content-lg-end">
                     <div class="dropdown d-flex justify-content-left">
                         <button class="btn common-btn dropdown-toggle w-100 text-center text-lg-end px-3 "type="button"id="adminDropdown"data-bs-toggle="dropdown"aria-expanded="false">
-                            <?php if (Auth::isUser()): ?>
-                                <i class="bi bi-person-circle"></i>
-                            <?php elseif (Auth::isAdmin()): ?>
-                                <i class="bi bi-stars"></i>
-                            <?php endif; htmlspecialchars($usuario['username']);?>
+                            <?php if (Auth::isUser()): ?><i class="bi bi-person-circle"></i> <?php endif; ?>
+                        <?php if (Auth::isAdmin()): ?>
+                        <i class="bi bi-stars"></i> <?php endif; ?> <?= htmlspecialchars($usuario['username'])?>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end w-100 text-center text-lg-end" aria-labelledby="adminDropdown" style="min-width: unset;">
                         <li>
@@ -311,19 +310,14 @@ $usuario = Auth::getUsuario();
     </div>
     </nav>
    
+   
 
     <!-- Título -->
     <div class="text-center my-4">
         <h2 class="title-font">CineHome</h2>
     </div>
 
-    <?php if ($mensagem):?>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($mensagem) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php endif; ?>
-
+   
         <!-- ############## HOME ############ -->
 
     <div id="HOME">
@@ -601,9 +595,7 @@ $usuario = Auth::getUsuario();
           <div class="col-md-6 col-lg-5 d-flex justify-content-center">
             <div class="p-3 common-container bg-dark text-white w-100" style="max-width: 400px;">
               <h4 class="text-center">Adicionar ao catálogo</h4>
-              <form class="needs-validation" method="POST" enctype="multipart/form-data" novalidate></form>
-              <!-- NAO REMOVA ESSE FORM OU O FORMULÁRIO DE ADICIONAR PARA DE FUNCIONAR -->
-              <form method="post" class="needs-validaton" novalidate>
+              <form method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
                 <!-- Título -->
                 <div class="mb-3">
                   <label class="form-label">Título</label>
@@ -639,10 +631,22 @@ $usuario = Auth::getUsuario();
                   </select>
                 </div>
                 <!-- Imagem -->
-                <!-- <div class="mb-3">
-                  <label for="imagem" class="form-label">Adicionar Imagem</label>
-                  <input type="file" name="imagem" id="imagem" class="form-control common-input" required>
-                </div> -->
+                <div class="mb-3">
+                  <label class="form-label">Imagem</label>
+                  <select name="imagem_existente" class="form-select common-input text-black mb-2">
+                    <option value="">Selecione uma imagem existente (opcional)</option>
+                    <?php
+                    $imagens = glob("../img/*.{jpg,jpeg,png,gif}", GLOB_BRACE);
+                    foreach ($imagens as $imagem) {
+                        $nome = basename($imagem);
+                        echo "<option value='img/{$nome}'>$nome</option>";
+                    }
+                    ?>
+                  </select>
+                  <div class="text-center mb-2">-- OU --</div>
+                  <label for="imagem" class="form-label">Upload de nova imagem</label>
+                  <input type="file" name="imagem" id="imagem" class="form-control common-input text-black" accept="image/*">
+                </div>
                 <button type="submit" class="btn common-btn w-100 mt-2" name="adicionar">Adicionar</button>
                 <?php if(isset($_POST['cadastrar'])){echo "<p>item adicionado com sucesso</p>";}?>
               </form>
@@ -684,17 +688,29 @@ $usuario = Auth::getUsuario();
                   <input type="number" name="diasCalculo" class="form-control common-input text-black " min="1" required>
                 </div>
                 <button class="btn common-btn w-100 mt-2" type="submit" name="calcular">Calcular</button>
+
               </form>
             </div>
           </div>
         </div>
+        <br>
+        <br>
+        <?php if ($mensagem):?>
+                <div class="alert alert-danger alert-dismissible fade show text-danger" role="alert">
+                <?= htmlspecialchars($mensagem) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+        <?php endif; ?>
+        <br>
+        <br>
+
         <!-- Cards-->
         <div class="row justify-content-center align-items-start gy-4 gx-4 mt-5">
         <!-- Itens cadastrados -->
         <?php foreach ($locadora->listarItens() as $item): ?>
             <div class="col-md-6 col-lg-5 d-flex justify-content-center">
             <div class="card bg-dark text-white w-100" style="max-width: 400px;">
-                <img src="../" class="card-img-top fmsr-poster" alt="Poster">
+                <img src="../<?= htmlspecialchars($item->getImagem()) ?>" class="card-img-top fmsr-poster" alt="<?= htmlspecialchars($item->getTitulo()) ?>">
                 <div class="card-body text-center">
               <h4 class="card-title"><?= htmlspecialchars($item->getTitulo()) ?></h4>
               
@@ -746,7 +762,7 @@ $usuario = Auth::getUsuario();
   </div>
 
   <script>
-  document.querySelector("form").addEventListener("submit", function (e) {
+  document.querySelector(".search-bar form").addEventListener("submit", function (e) {
     e.preventDefault();
     const searchValue = e.target.querySelector("input").value.toLowerCase();
  
@@ -773,7 +789,7 @@ $usuario = Auth::getUsuario();
  
     <!-- Rodapé -->
     <footer class="d-flex flex-column align-items-center justify-content-center">
-    <div class="nav-logo"><img src="img/Logo_streaming(2).png" alt="Logo"></div>
+    <div class="nav-logo"><img src="../img/Logo_streaming(2).png" alt="Logo"></div>
     <p class="lh-1"><strong>Entre em contato:</strong> contact@cinehome.com </p>
     <p class="lh-1" style="font-size: small;">©️2025, Cinehome.com | Direitos Reservados</p>
     </footer>

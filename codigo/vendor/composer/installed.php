@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'locadora/streaming',
+        'name' => 'locadora/veiculos',
         'pretty_version' => '1.0.0+no-version-set',
         'version' => '1.0.0.0',
         'reference' => null,
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'locadora/itens' => array(
+        'locadora/veiculos' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
             'reference' => null,
