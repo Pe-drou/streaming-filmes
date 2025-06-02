@@ -1,0 +1,10 @@
+[
+    {
+        "tipo": "serie",
+        "titulo": "tedste",
+        "sinopse": "asd",
+        "genero": "romance",
+        "disponivel": true,
+        "imagem": ".\/img\/no-image.jpg"
+    }
+]

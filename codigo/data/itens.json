@@ -1,1 +1,42 @@
-[]
+[
+    {
+        "tipo": "serie",
+        "titulo": "Cobrakai",
+        "sinopse": "asdasd",
+        "genero": "acao",
+        "disponivel": true,
+        "imagem": "img/no-image.jpg"
+    },
+    {
+        "tipo": "serie",
+        "titulo": "Cobrakai",
+        "sinopse": "asdasd",
+        "genero": "acao",
+        "disponivel": true,
+        "imagem": "img/1.jpg"
+    },
+    {
+        "tipo": "novela",
+        "titulo": "caba\u00e7o",
+        "sinopse": "nun fumfa",
+        "genero": "ficcao",
+        "disponivel": true,
+        "imagem": "img/dexter.jpg"
+    },
+    {
+        "tipo": "filme",
+        "titulo": "vcdfbfgddgbdgfbdfdsf",
+        "sinopse": "wuawa",
+        "genero": "romance",
+        "disponivel": true,
+        "imagem": "img/conclave.jpg"
+    },
+    {
+        "tipo": "filme",
+        "titulo": "ez",
+        "sinopse": "ft68ftuf",
+        "genero": "drama",
+        "disponivel": true,
+        "imagem": "img/charliechaplin.jpg"
+    }
+]
